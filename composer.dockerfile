@@ -1,4 +1,4 @@
-FROM composer:1.5
+FROM composer:2
 
 ENV COMPOSERUSER=laravel
 ENV COMPOSERGROUP=laravel
