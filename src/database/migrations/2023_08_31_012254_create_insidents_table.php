@@ -13,14 +13,9 @@ class CreateInsidentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('insidents', function (Blueprint $table) {
+        Schema::create('incidents', function (Blueprint $table) {
             $table->id();
-            $table->string('name')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->datetime('start_date');
-            $table->datetime('end_date');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class CreateInsidentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('insidents');
+        Schema::dropIfExists('incidents');
     }
 }
