@@ -14,6 +14,19 @@ class IncidentsScreenTest extends TestCase
     use WithFaker, RefreshDatabase;
 
     protected $incidents = null;
+
+    /**
+     * Clean database
+     *
+     * @return void
+     */
+    private function clean_database() 
+    {
+        if($this->incidents) {
+            Incident::truncate();
+        }
+    }
+
     /**
      * Test show incident crud screen
      *
@@ -100,15 +113,20 @@ class IncidentsScreenTest extends TestCase
     }
 
     /**
-     * Clean database
+     * Test delete incident
      *
      * @return void
      */
-    private function clean_database() 
+    public function test_delete_incident() 
     {
-        if($this->incidents) {
-            Incident::truncate();
-        }
-    }
 
+        $incident = Incident::factory()->create();
+
+        $response = $this->get(route('incidents.destroy',$incident->id));
+
+        $response->assertRedirect(route('incidents.index'));
+        $response->assertSessionHas('sucess', "Incident deleted");
+
+
+    }
 }
