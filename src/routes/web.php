@@ -25,5 +25,6 @@ Route::prefix('admin')->group(function () {
     Route::post('/incidents/store', [IncidentController::class, 'store'])->name('incidents.store'); 
     Route::get('/incidents/{id}',   [IncidentController::class, 'show'])->name('incidents.show'); 
     Route::get('/incidents/destroy/{id}', [IncidentController::class, 'destroy'])->name('incidents.destroy'); 
+    Route::post('/incidents/update', [IncidentController::class, 'update'])->name('incidents.update'); 
 });
 
