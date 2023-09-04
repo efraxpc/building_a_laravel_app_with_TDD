@@ -6,29 +6,29 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <title>Hello, world!</title>
 </head>
-<body class="container py-5">
+<body class="container py-6">
+    @if(Session::has('sucess'))
+    <p>{{ Session::get('sucess') }}</p>
+    @endif
     <table class="table table-striped table-hover caption-top">
         <caption>Incidents</caption>
         <thead>
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             @forelse($incidents as $incident)
             <tr>
-                <th scope="row"><a href="{{ route('incidents.show',$incident->id) }}">{{ $incident->id }}</a></th>
-                <td>{{ $incident->name }}</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <p>Delete</p>
-                </td>
+                <td scope="row"><a href="{{ route('incidents.show',$incident->id) }}">{{ $incident->id }}</a></td>
+                <td scope="row">{{ $incident->name }}</td>
+                <td scope="row"><a href="{{ route('incidents.destroy',$incident->id) }}">Delete</a></td>
             </tr>
             @empty
             <tr>
-                <td colspan="2">
+                <td colspan="3">
                     <p>There is no records</p>
                 </td>
             </tr>
