@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IncidentController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,8 @@ use App\Http\Controllers\IncidentController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function (Request $request) {
+    return redirect()->route('incidents.index');
 });
 
 Route::prefix('admin')->group(function () {
@@ -23,5 +24,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/incidents/create', [IncidentController::class, 'create'])->name('incidents.create'); 
     Route::post('/incidents/store', [IncidentController::class, 'store'])->name('incidents.store'); 
     Route::get('/incidents/{id}',   [IncidentController::class, 'show'])->name('incidents.show'); 
+    Route::get('/incidents/destroy/{id}', [IncidentController::class, 'destroy'])->name('incidents.destroy'); 
 });
 
