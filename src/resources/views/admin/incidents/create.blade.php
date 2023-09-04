@@ -17,7 +17,7 @@
 <form method="POST" action="{{ route('incidents.store') }}">
     @csrf
     <label for="name">Name:</label>
-    <input type="text" name="name" value="">
+    <input type="text" name="name" value="{{ old('name') }}">
 
     <input type="submit" value="Submit">
 </form>
