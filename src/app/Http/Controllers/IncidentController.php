@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Incident;
 
-CONST INCIDENT_SAVED_MSG = 'Incident saved';
+CONST INCIDENT_SAVED_MSG     = 'Incident saved';
+CONST INCIDENT_DELETED_MSG   = 'Incident deleted';
+
 
 class IncidentController extends Controller
 {
@@ -40,6 +42,10 @@ class IncidentController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required'
+        ]);
+
         $incident = new Incident();
         $incident->name = $request->input('name');
         $incident->save();
@@ -92,8 +98,12 @@ class IncidentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $deleted = DB::table('incidents')
+            ->where('id', '=', $id)->delete();
+
+        $request->session()->flash('sucess', INCIDENT_DELETED_MSG);
+        return redirect()->route('incidents.index');
     }
 }
