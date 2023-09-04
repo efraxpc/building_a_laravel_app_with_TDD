@@ -104,11 +104,9 @@ class IncidentsScreenTest extends TestCase
     public function test_show_incident() 
     {
         $this->clean_database();
-
         $incident = Incident::factory()->create();
 
         $response = $this->get(route('incidents.show', ['id'=>$incident->id]));
-
         $response->assertSee($incident->name);
     }
 
@@ -121,12 +119,9 @@ class IncidentsScreenTest extends TestCase
     {
 
         $incident = Incident::factory()->create();
-
+        
         $response = $this->get(route('incidents.destroy',$incident->id));
-
         $response->assertRedirect(route('incidents.index'));
         $response->assertSessionHas('sucess', "Incident deleted");
-
-
     }
 }

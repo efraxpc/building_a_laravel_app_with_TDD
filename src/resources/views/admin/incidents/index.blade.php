@@ -21,6 +21,11 @@
                 <th scope="row"><a href="{{ route('incidents.show',$incident->id) }}">{{ $incident->id }}</a></th>
                 <td>{{ $incident->name }}</td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <p>Delete</p>
+                </td>
+            </tr>
             @empty
             <tr>
                 <td colspan="2">
