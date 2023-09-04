@@ -18,7 +18,7 @@
         <tbody>
             @forelse($incidents as $incident)
             <tr>
-                <th scope="row">{{ $incident->id }}</th>
+                <th scope="row"><a href="{{ route('incidents.show',$incident->id) }}">{{ $incident->id }}</a></th>
                 <td>{{ $incident->name }}</td>
             </tr>
             @empty
