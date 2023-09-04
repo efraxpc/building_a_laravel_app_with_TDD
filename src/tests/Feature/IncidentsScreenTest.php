@@ -119,9 +119,20 @@ class IncidentsScreenTest extends TestCase
     {
 
         $incident = Incident::factory()->create();
-        
+
         $response = $this->get(route('incidents.destroy',$incident->id));
         $response->assertRedirect(route('incidents.index'));
         $response->assertSessionHas('sucess', "Incident deleted");
+    }
+
+    /**
+     * Test if it send blank value when create incident
+     *
+     * @return void
+     */
+    public function test_if_it_send_blank_value_when_create_incident() 
+    {
+        $response = $this->post(route('incidents.store'));
+        $response->assertSessionHasErrors('name');
     }
 }
