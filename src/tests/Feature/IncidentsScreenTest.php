@@ -135,4 +135,39 @@ class IncidentsScreenTest extends TestCase
         $response = $this->post(route('incidents.store'));
         $response->assertSessionHasErrors('name');
     }
+
+    /**
+     * Test show edit incident screen
+     *
+     * @return void
+     */
+    public function test_show_edit_incident_screen() 
+    {
+        $incident = Incident::factory()->create();
+
+        $response = $this->get(route('incidents.show',$incident->id));
+        $response->assertSee($incident->name);
+    }
+
+
+    /**
+     * Test edit incident
+     *
+     * @return void
+     */
+    public function test_edit_incident() 
+    {
+        $this->clean_database();
+        $incident = Incident::factory()->create();
+
+        $name = $incident->name;
+
+        $response = $this->post(route('incidents.update'), [
+            'id'   => $incident->id,
+            'name' => 'name test'
+        ]);
+
+        $response->assertSee('name test');
+
+    }
 }

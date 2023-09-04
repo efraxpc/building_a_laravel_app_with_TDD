@@ -8,6 +8,8 @@ use App\Models\Incident;
 
 CONST INCIDENT_SAVED_MSG     = 'Incident saved';
 CONST INCIDENT_DELETED_MSG   = 'Incident deleted';
+CONST INCIDENT_UPDATED_MSG   = 'Incident updated';
+
 
 
 class IncidentController extends Controller
@@ -76,9 +78,18 @@ class IncidentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $incident = Incident::find($request->id);
+
+        $incident->name = $request->name;
+        $incident->save();
+
+        $request->session()->flash('sucess', INCIDENT_UPDATED_MSG);
+
+        return view('admin.incidents.edit', [
+            'incident' => $incident
+        ]);
     }
 
     /**
