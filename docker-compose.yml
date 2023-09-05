@@ -47,3 +47,10 @@ services:
     depends_on: 
       - mysql
     entrypoint: ["php", "/var/www/html/artisan"]
+
+  jenkins:
+    image: jenkins/jenkins
+    ports:
+      - 8080:8080
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
