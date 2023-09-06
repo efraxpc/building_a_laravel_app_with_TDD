@@ -49,7 +49,9 @@ services:
     entrypoint: ["php", "/var/www/html/artisan"]
 
   jenkins:
-    image: jenkins/jenkins
+    build:
+      context: .
+      dockerfile: jenkins.dockerfile
     ports:
       - 8080:8080
     volumes:
