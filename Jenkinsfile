@@ -6,7 +6,7 @@ pipeline {
                 sh '''
                     docker info
                     docker version
-                    docker compose version
+                    docker-compose version
                 '''
             }
         }
@@ -33,7 +33,7 @@ pipeline {
         stage("Start Docker") {
             steps {
                 sh 'make up'
-                sh 'docker compose ps'
+                sh 'docker-compose ps'
             }
         }
         stage("Run Composer Install") {
@@ -74,8 +74,8 @@ pipeline {
             }                                  
         }
         always {
-            sh 'docker compose down --remove-orphans -v'
-            sh 'docker compose ps'
+            sh 'docker-compose down --remove-orphans -v'
+            sh 'docker-compose ps'
         }
     }
 }
