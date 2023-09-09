@@ -32,13 +32,13 @@ pipeline {
         }
         stage("Start Docker") {
             steps {
-                sh 'make up'
-                sh 'docker compose ps'
+                sh '''make up'''
+                sh '''docker compose ps'''
             }
         }
         stage("Run Composer Install") {
             steps {
-                sh 'docker compose run --rm composer install'
+                sh '''docker compose run --rm composer install'''
             }
         }
         stage("Populate .env file") {
@@ -50,7 +50,7 @@ pipeline {
         }              
         stage("Run Tests") {
             steps {
-                sh 'docker compose run --rm artisan test'
+                sh '''docker compose run --rm artisan test'''
             }
         }
     }
