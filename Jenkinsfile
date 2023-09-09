@@ -10,31 +10,27 @@ pipeline {
                 '''
             }
         }
-        stage("Verify SSH connection to server") {
-            steps {
-                sshagent(credentials: ['aws-ec2']) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no ec2-user@13.40.116.143 whoami
-                    '''
-                }
-            }
-        }        
+  
         stage("Clear all running docker containers") {
             steps {
-                sh '''
-                         docker rm -f $(docker ps -aq) 
-                        '''
+                script {
+                    try {
+                        sh 'docker rm -f $(docker ps -a -q)'
+                    } catch (Exception e) {
+                        echo 'No running container to clear up...'
+                    }
+                }
             }
         }
         stage("Start Docker") {
             steps {
-                sh '''make up'''
-                sh '''docker compose ps'''
+                sh 'make up'
+                sh 'docker compose ps'
             }
         }
         stage("Run Composer Install") {
             steps {
-                sh '''docker compose run --rm composer install'''
+                sh 'docker compose run --rm composer install'
             }
         }
         stage("Populate .env file") {
@@ -46,7 +42,7 @@ pipeline {
         }              
         stage("Run Tests") {
             steps {
-                sh '''docker compose run --rm artisan test'''
+                sh 'docker compose run --rm artisan test'
             }
         }
     }
