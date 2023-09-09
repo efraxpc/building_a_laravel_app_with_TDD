@@ -21,13 +21,9 @@ pipeline {
         }        
         stage("Clear all running docker containers") {
             steps {
-                script {
-                    try {
-                        sh '''docker rm -f $(docker ps -aq)'''
-                    } catch (Exception e) {
-                        echo 'No running container to clear up...'
-                    }
-                }
+                sh '''
+                         docker rm -f $(docker ps -aq) 
+                        '''
             }
         }
         stage("Start Docker") {
