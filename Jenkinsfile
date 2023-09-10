@@ -28,6 +28,7 @@ pipeline {
         }
         stage("Run Composer Install") {
             steps {
+                sh 'cd src'
                 sh 'docker compose run --rm composer install'
             }
         }
@@ -40,7 +41,6 @@ pipeline {
         }              
         stage("Run Tests") {
             steps {
-                sh 'cd src'
                 sh 'docker compose run --rm artisan test'
             }
         }
