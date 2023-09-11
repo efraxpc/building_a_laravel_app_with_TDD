@@ -28,8 +28,13 @@ pipeline {
         }
         stage("Run Composer Install") {
             steps {
-                sh 'cd src'
-                sh 'docker compose run --rm composer install'
+                    sh "pwd"
+                        dir('your-sub-directory') {
+                            sh 'docker compose run --rm composer install'
+                            sh "pwd"
+                        }
+                    sh "pwd"
+        
             }
         }
         stage("Populate .env file") {
