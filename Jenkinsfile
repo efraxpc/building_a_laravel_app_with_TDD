@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sshagent(credentials: ['aws-ec2']) {
                     sh '''
-                        ssh -i "/var/jenkins_home/.ssh/key-for-ec2.pem" ubuntu@ec2-54-152-214-162.compute-1.amazonaws.com whoami
+                        ssh -i "/var/jenkins_home/.ssh/key-for-ec2.pem" ubuntu@ec2-54-167-236-169.compute-1.amazonaws.com whoami
                     '''
                 }
             }
@@ -28,13 +28,7 @@ pipeline {
         }
         stage("Run Composer Install") {
             steps {
-                    sh "pwd"
-                        dir('your-sub-directory') {
-                            sh 'docker compose run --rm composer install'
-                            sh "pwd"
-                        }
-                    sh "pwd"
-        
+                sh 'docker compose run --rm composer install'
             }
         }
         stage("Populate .env file") {
