@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sshagent(credentials: ['aws-ec2']) {
                     sh '''
-                        ssh -i "/var/jenkins_home/.ssh/key-for-ec2.pem" ubuntu@ec2-54-152-214-162.compute-1.amazonaws.com whoami
+                        ssh -o StrictHostKeyChecking=no ubuntu@ec2-54-152-214-162.compute-1.amazonaws.com whoami
                     '''
                 }
             }
