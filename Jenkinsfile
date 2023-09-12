@@ -46,7 +46,7 @@ pipeline {
     }
     post {
         success {
-            sh 'cd "/var/lib/jenkins/workspace/LaravelTest"'
+            sh 'cd "/Users/efraincolmenares/Documents/project/jenkins-docker/jenkins_home/workspace/LaravelTDD"'
             sh 'rm -rf artifact.zip'
             sh 'zip -r artifact.zip . -x "*node_modules**"'
             withCredentials([sshUserPrivateKey(credentialsId: "aws-ec2", keyFileVariable: 'keyfile')]) {
