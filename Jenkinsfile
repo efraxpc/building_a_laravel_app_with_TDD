@@ -27,6 +27,7 @@ pipeline {
         }
         stage("Run Composer Install") {
             steps {
+                sh 'pwd'
                 sh 'docker compose run --rm composer install'
             }
         }
