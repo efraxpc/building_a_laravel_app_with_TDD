@@ -31,11 +31,18 @@ services:
       - ./src:/var/www/html
   composer:
     build:
-      context: .
+      context: ./dockerfiles
       dockerfile: composer.dockerfile
+    container_name: composer
     volumes:
-      - ./src:/var/www/html
+      - ./:/var/www/html
     working_dir: /var/www/html
+    depends_on:
+      - php
+    user: ${USER:-youruser}
+    entrypoint: ['composer', '--ignore-platform-reqs']
+    networks:
+      - laravel
 
   artisan:
     build:
