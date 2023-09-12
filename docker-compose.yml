@@ -54,3 +54,6 @@ services:
     depends_on: 
       - mysql
     entrypoint: ["php", "/var/www/html/artisan"]
+
+networks:
+  laravel:
