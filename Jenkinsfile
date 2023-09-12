@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sshagent(credentials: ['aws-ec2']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@ec2-54-152-214-162.compute-1.amazonaws.com whoami
+                        ssh -i "/var/jenkins_home/.ssh/key-for-ec2.pem" ubuntu@ec2-54-152-214-162.compute-1.amazonaws.com whoami
                     '''
                 }
             }
@@ -22,12 +22,12 @@ pipeline {
 
         stage("Start Docker") {
             steps {
+                sh 'make up'
                 sh 'docker compose ps'
             }
         }
         stage("Run Composer Install") {
             steps {
-                sh 'pwd'
                 sh 'docker compose run --rm composer install'
             }
         }
@@ -62,6 +62,10 @@ pipeline {
                     }
                 }
             }                                  
+        }
+        always {
+            sh 'docker compose down --remove-orphans -v'
+            sh 'docker compose ps'
         }
     }
 }
